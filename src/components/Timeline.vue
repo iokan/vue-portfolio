@@ -1,17 +1,20 @@
 <template>
   <div class="timeline">
-    <p class="timeline__description">Визуализация длительности и этапов жизни. Каждая клетка — четверть месяца. В строке 48 клеток, или 1 год.</p>
+    <p class="timeline__description">Визуализация длительности и этапов жизни. Каждая клетка — четверть месяца. В строке
+      48 клеток, или 1 год.</p>
     <div class="timeline__table">
-      <div class="timeline__table-item"
-           v-for="n in amountItem(birthDate, lifetimeDate)"
-           :key="n"
-           :class="addClass(n)">
-        <span v-if="n === 48">Год</span>
-        <span v-else-if="n === 960">20</span>
-        <span v-else-if="n === 1920">40</span>
-        <span v-else-if="n === 2880">60</span>
-        <span v-else-if="n === 3840">80</span>
-      </div>
+      <transition-group class="timeline__table">
+        <div class="timeline__table-item"
+             v-for="n in amountItem(birthDate, lifetimeDate)"
+             :key="n"
+             :class="addClass(n)">
+          <span v-if="n === 48">Год</span>
+          <span v-else-if="n === 960">20</span>
+          <span v-else-if="n === 1920">40</span>
+          <span v-else-if="n === 2880">60</span>
+          <span v-else-if="n === 3840">80</span>
+        </div>
+      </transition-group>
       <div class="timeline__table-period">{{timelinePeriod}} {{timelinePeriodText}}</div>
     </div>
 
@@ -134,9 +137,9 @@ export default {
       }
 
       if ((this.timelineNav === 'wedding' && n <= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.weddingDate, this.currentDate))) ||
-      (this.timelineNav === 'parent' && n <= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.birthDateDaughter, this.currentDate))) ||
-      (this.timelineNav === 'building' && n <= this.amountItem(this.birthDate, this.currentDate) && n >= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.workDateIt, this.currentDate))) ||
-      (this.timelineNav === 'it' && n <= this.amountItem(this.birthDate, this.workDateIt) && n >= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.workDateBuilding, this.currentDate)))) {
+          (this.timelineNav === 'parent' && n <= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.birthDateDaughter, this.currentDate))) ||
+          (this.timelineNav === 'building' && n <= this.amountItem(this.birthDate, this.currentDate) && n >= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.workDateIt, this.currentDate))) ||
+          (this.timelineNav === 'it' && n <= this.amountItem(this.birthDate, this.workDateIt) && n >= (this.amountItem(this.birthDate, this.currentDate) - this.amountItem(this.workDateBuilding, this.currentDate)))) {
         return color + ' ' + 'opacity'
       } else {
         return color
